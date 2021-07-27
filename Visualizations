@@ -1,0 +1,15 @@
+MATCH (p:Student)-[i1:HAS_WRITING_GRADE]-(w1:WritingGroup)
+MATCH (p:Student)-[i2:HAS_READING_GRADE]-(w2:ReadingGroup)
+MATCH (p:Student)-[i3:HAS_MATH_GRADE]-(w3:MathGroup)
+WHERE (w1.writing_letter_grade="A" AND w2.reading_letter_grade="A" AND w3.math_letter_grade= "A"AND TEST) OR (w1.writing_letter_grade="F" AND w2.reading_letter_grade="F" AND w3.math_letter_grade= "F")
+RETURN p,i1,w1,i2,w2,i3,w3
+
+MATCH (p:Student) - [a1:HAS]- (p1:PrentalLevelOfEducation)
+MATCH (p:Student)-[i1:HAS_WRITING_GRADE]->(w1:WritingGroup)
+MATCH (p:Student)-[i2:HAS_READING_GRADE]-(w2:ReadingGroup)
+MATCH (p:Student)-[i3:HAS_MATH_GRADE]-(w3:MathGroup)
+WHERE 
+(w1.writing_letter_grade="A" AND w2.reading_letter_grade="A" AND w3.math_letter_grade= "A" AND p1.degree="bachelor's degree") OR
+(w1.writing_letter_grade="A" AND w2.reading_letter_grade="A" AND w3.math_letter_grade= "A" AND p1.degree= "master's degree") OR
+(w1.writing_letter_grade="A" AND w2.reading_letter_grade="A" AND w3.math_letter_grade= "A" AND p1.degree= "high school")
+RETURN p,i1,w1,i2,w2,i3,w3,a1,p1
