@@ -1,0 +1,16 @@
+MATCH (p:Student)-[i1:HAS_WRITING_GRADE]-(w1:WritingGroup)
+MATCH (p:Student)-[i2:HAS_READING_GRADE]-(w2:ReadingGroup)
+MATCH (p:Student)-[i3:HAS_MATH_GRADE]-(w3:MathGroup)
+WHERE (w1.writing_letter_grade=$writing_letter_grade) AND (w2.reading_letter_grade=$reading_letter_grade) AND (w3.math_letter_grade= $math_letter_grade)
+RETURN p,i1,w1,i2,w2,i3,w3
+
+MATCH (p:Student)-[i1:HAS_READING_GRADE]-(w:ReadingGroup)
+WHERE p.test_preparation_course= $test_preparation_course AND w.reading_letter_grade= $reading_letter_grade
+RETURN p, i1, w
+
+MATCH(r:Race)<-[b:BELONG]-(s:Student)-[b1:HAS]->(p:PrentalLevelOfEducation)
+MATCH(m:MathGroup)<-[r1:HAS_MATH_GRADE]-(s:Student)-[r2:HAS_READING_GRADE]->(m1:ReadingGroup)
+MATCH (w:WritingGroup)<-[r3:HAS_WRITING_GRADE]-(s:Student)
+WHERE s.student_id=$student_id
+return r,b,s,b1,p,m,r1,r2,m1,w,r3
+
